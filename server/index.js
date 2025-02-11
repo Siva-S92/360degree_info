@@ -12,6 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 // Define routes
+app.get('/', async (req, res) => res.send("express backend working"))
 app.use('/employees', employeeRoutes);
 app.use('/leaves', leaveRoutes);
 
