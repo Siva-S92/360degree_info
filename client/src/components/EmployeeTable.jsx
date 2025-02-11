@@ -6,11 +6,14 @@ import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import axios from "axios";
 import { API_BASE_URL } from "../constant.js";
 import EditEmployeeDialog from "./EditEmployeeDialog.jsx";
+import { toast } from "react-toastify";
+import Loader from "./Loader.jsx";
 
 export default function BasicExampleDataGrid() {
   const [employeedata, setEmployeeData] = React.useState([]);
   const [editingEmployeeId, setEditingEmployeeId] = React.useState(null);
   const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState(false)
 
   const handleEditClick = (id) => () => {
     setEditingEmployeeId(id);
@@ -109,13 +112,19 @@ export default function BasicExampleDataGrid() {
   const rows = employeedata;
 
   const getAllEmployeesData = async () => {
+    setLoading(true)
     try {
       const response = await axios.get(`${API_BASE_URL}/employees`);
       console.log(response.data);
       setEmployeeData(response.data);
+      setLoading(false)
     } catch (error) {
       console.error("Error fetching employees:", error);
+      setLoading(false)
+      toast.error(error.message)
       throw error;
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -127,6 +136,11 @@ export default function BasicExampleDataGrid() {
       <h1 className="text-slate-400 text-2xl font-bold mb-5 text-center">
         Employees
       </h1>
+
+      {
+        loading && ( <Loader />)
+      }
+
       {employeedata.length > 0 && (
         <Box sx={{ height: 400, width: "100%" }}>
           <DataGrid
