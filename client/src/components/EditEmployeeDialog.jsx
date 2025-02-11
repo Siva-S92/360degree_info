@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { API_BASE_URL } from "../constant.js";
+import { toast } from "react-toastify";
 
 const EditEmployeeDialog = ({ open, employeeId, onClose, onUpdate }) => {
   const [employee, setEmployee] = useState(null);
@@ -44,8 +45,10 @@ const EditEmployeeDialog = ({ open, employeeId, onClose, onUpdate }) => {
       await axios.put(`${API_BASE_URL}/employees/${employeeId}`, employee);
       onUpdate(); // Refresh employee table
       onClose(); // Close dialog
+      toast.success("Employee details updated Successfully")
     } catch (err) {
       setError("Failed to update employee.");
+      toast.success("Something went wrong while updating")
     }
   };
 

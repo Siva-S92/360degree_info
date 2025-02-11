@@ -114,8 +114,8 @@ const LeaveApplicationForm = () => {
 
   return (
     <>
-      <h1 className="mt-10 text-center text-red-300 text-2xl font-bold">Apply Leave</h1>
-      <div className="w-full max-w-4xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">
+      <h1 className="mt-5 text-center text-red-300 text-2xl font-bold">Apply Leave</h1>
+      <div className="w-full max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg">
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Employee Selection */}
           <div>
